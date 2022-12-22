@@ -81,8 +81,9 @@ function hello(){
   process.exit();
 }
 /**
-
-  @returns {void}
+ * HELP COMMAND APPLICATION
+ *
+ * @returns {void}
  */
  function help(){
   console.log('Help Command:\n quit or exit -> "To exit The App \n hello -> hello!"!')

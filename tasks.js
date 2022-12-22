@@ -78,7 +78,7 @@ function hello(text){
  * @returns {void}
  */
  function quit(){
-  console.log('Quitting now, goodbye!')
+  console.log('Quitting now, goodbye!');
   process.exit();
 }
 /**

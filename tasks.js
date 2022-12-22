@@ -43,6 +43,9 @@ function onDataReceived(text) {
   else if(text.startsWith('add')){
     add(text);
   }
+  else if(text.startsWith('remove')){
+    remove(text);
+  }
   else if(text === 'help\n'){
     help();
   }
@@ -101,14 +104,22 @@ function hello(text){
 * @returns {void}
 */
 function add(text){
-  let text1 = text.substring(3);
- return listt.push(text1);
+  let text1 = text.substring(4);
+//  listt= listt.push(text1);
+  if(text1.length > 0){
+  listt.push(text1.trim());
+  console.log(listt);
 }
-
+else { console.log("Invalid commit enter help to help you")}
+}
 /**
 * @returns {void}
 */
-function remove(){}
+function remove(text){
+  var value = text.substring(7);
+ listt.remove(value);
+ console.log(`Removed Done${text}!`)
+}
 
 
 

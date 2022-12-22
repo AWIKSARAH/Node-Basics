@@ -16,7 +16,7 @@ function startApp(name){
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-
+let  listt =['a','aa'];
 
 /**
  * Decides what to do depending on the data that was received
@@ -39,6 +39,9 @@ function onDataReceived(text) {
   }
   else if(text.startsWith('hello')){
     hello(text);
+  }
+  else if(text.startsWith('add')){
+    add(text);
   }
   else if(text === 'help\n'){
     help();
@@ -90,19 +93,31 @@ function hello(text){
  * @returns {void}
  */
  function help(){
-  console.log('Help Command:\n quit or exit -> "To exit The App \n hello -> hello!"!')
+  console.log('Help Command:\n quit or exit -> To exit The App \n hello -> hello! \n hello Your_Name -> hello your_Name!')
 
 }
+/**
+* @returns {void}
+*/
+// function add(item){
+// list.push(item);
+// }
 
-function add(){}
+/**
+* @returns {void}
+*/
 function remove(){}
+
+
+
+
 /**
 * @returns {void}
 */
 function list(){
-  var list =['add','remove']
+
   console.log(list)
-  list.map((index) => {
+  listt.map((index) => {
     console.log(`${index.indexOf(index)+1} - ${index}`);
 }
   )}

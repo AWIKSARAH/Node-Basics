@@ -43,6 +43,9 @@ function onDataReceived(text) {
   else if(text === 'help\n'){
     help();
   }
+  else if(text === 'list\n'){
+    list();
+  }
   else{
     unknownCommand(text);
   }
@@ -91,8 +94,18 @@ function hello(text){
 
 }
 
-
-
+function add(){}
+function remove(){}
+/**
+* @returns {void}
+*/
+function list(){
+  var list =['add','remove']
+  console.log(list)
+  list.map((index) => {
+    console.log(`${index.indexOf(index)+1} - ${index}`);
+}
+  )}
 
 // The following line starts the application
 startApp("Sarah Awik")

@@ -116,9 +116,9 @@ function remove(){}
 */
 function list(){
 
-  console.log(list)
+  // console.log(listt)
   listt.map((index) => {
-    console.log(`${index.indexOf(index)+1} - ${index}`);
+    console.log(`${listt.indexOf(index)} - ${index}`);
 }
   )}
 

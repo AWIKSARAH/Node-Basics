@@ -96,12 +96,14 @@ function hello(text){
   console.log('Help Command:\n quit or exit -> To exit The App \n hello -> hello! \n hello Your_Name -> hello your_Name!')
 
 }
+
 /**
 * @returns {void}
 */
-// function add(item){
-// list.push(item);
-// }
+function add(text){
+  let text1 = text.substring(3);
+ return listt.push(text1);
+}
 
 /**
 * @returns {void}
@@ -118,7 +120,7 @@ function list(){
 
   // console.log(listt)
   listt.map((index) => {
-    console.log(`${listt.indexOf(index)} - ${index}`);
+    console.log(`${listt.indexOf(index)+1} - ${index}`);
 }
   )}
 

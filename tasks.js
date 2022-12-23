@@ -110,22 +110,22 @@ function add(text) {
  * @returns {void}
  */
 function remove(text) {
-  let valueS = text.substring(7);
-  console.log("value :" + valueS);
-  console.log(listt);
+  // let valueS = text.substring(7);
+  // let value = parseInt(valueS);
+  // if (value <= 0 || value > listt.length) {
+  //   console.log("You Enter A Number does not existe ");
+  // } else if (value > 0) {
+  //   listt.splice(value - 1);
+  //   console.log(`Remove Done Item `);
+  // } else {
+  //   listt.pop();
+  // }
+  let value= text.slice(7).trim()//index of removed
+  value=parseInt(value);
+  if (value > 0) {listt.splice(value-1, 1);}
+   else if (value <= 0) {console.log("You Enter A Number does not existe ");}
+  else if (text.startsWith("remove")){listt.pop();}
 
-  console.log(listt.length);
-  let value = parseInt(valueS);
-  console.log(typeof value);
-  if (value <= 0 || value > listt.length) {
-    console.log("You Enter A Number does not existe ");
-  } else if (value > 0) {
-    listt.splice(value - 1);
-    console.log(`Remove Done Item ` + listt);
-  } else {
-    listt.pop();
-  }
-  console.log(listt);
 }
 
 /**

@@ -8,31 +8,42 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+ let inputjson = "./database.json";
+
+ 
+  
 function startApp(name) {
+  // try {
+  //   const data = JSON.stringify(fs.readFile('filePa/home/sarah/Documents/CODI/Node-Basics/database.json'));
+  //   console.log(data);
+  // } catch (error) {
+  //   console.error(`Got an error trying to read the file: ${error.message}`);
+  // }
+  readData() 
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
   process.stdin.on("data", onDataReceived);
   console.log(`Welcome to ${name}'s application!`);
-  console.log("--------------------");
+  console.log("-------------------");
 }
 // let listt = {
 //   task:" WakeUP",
-//    task:" Watch Movie", 
-//    "EatChicken", 
+//    task:" Watch Movie",
+//    "EatChicken",
 //    "getMilking"
 //   };
+
+
+// inputjson = process.argv[2]
+
 let listt = [
-  {task: "WakeUP",
-  done: true},
-  {task: "Watch Movie",
-  done: false},
-  {task: "EatChicken",
-  done: false},
-  {task: "getMilking",
-  done: true},
-  {task: "EatSalad",
-  done: true},
+  { task: "WakeUP", done: true },
+  { task: "Watch Movie", done: false },
+  { task: "EatChicken", done: false },
+  { task: "getMilking", done: true },
+  { task: "EatSalad", done: true },
 ];
+const fs = require("fs");
 
 let arrayObject = Object.values(listt);
 
@@ -40,7 +51,7 @@ let arrayObject = Object.values(listt);
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
  *
- * For example, if the user entered  
+ * For example, if the user entered
  * ```
  * node tasks.js batata
  * ```
@@ -53,6 +64,7 @@ let arrayObject = Object.values(listt);
  */
 function onDataReceived(text) {
   if (text === "quit\n" || text === "exit\n") {
+    saveData();
     quit();
   } else if (text.startsWith("hello")) {
     hello(text);
@@ -68,10 +80,9 @@ function onDataReceived(text) {
     edit(text);
   } else if (text.startsWith("check") && text.endsWith("\n")) {
     isChecked(text);
-  }else if (text.startsWith("uncheck") && text.endsWith("\n")) {
+  } else if (text.startsWith("uncheck") && text.endsWith("\n")) {
     isUnChecked(text);
-  }
-   else {
+  } else {
     unknownCommand(text);
   }
 }
@@ -104,7 +115,36 @@ function hello(text) {
  */
 function quit() {
   console.log("Quitting now, goodbye!");
+  // console.log(arrayObject);
   process.exit();
+}
+/**
+ * 
+ * @returns {void}
+ */
+function readData() {
+  fs.readFile(inputjson, (data) => {
+    try{
+    let tasks = JSON.parse(data);
+    // console.log(arrayObject);
+  }catch(error){
+    console.error("Invalid -> Empty database");
+  }
+});
+}
+
+/**
+ * Save COMMAND APPLICATION
+ *
+ * @returns {void}
+ */
+function saveData() {
+  // console.log(arrayObject)
+  let data = JSON.stringify(arrayObject);
+  fs.writeFileSync(inputjson, data, (err) => {
+    if (err) throw err;
+    console.log("Complete");
+  });
 }
 /**
  * HELP COMMAND APPLICATION
@@ -124,9 +164,8 @@ function add(text) {
   let text1 = text.substring(4);
   //  listt= listt.push(text1);
   if (text1.length > 0) {
-    arrayObject.push({task:text1.trim(), done: false});
+    arrayObject.push({ task: text1.trim(), done: false });
     console.log(listt);
-
   } else {
     console.log("Invalid commit enter help to help you");
   }
@@ -135,12 +174,15 @@ function add(text) {
  * @returns {void}
  */
 function remove(text) {
-  let value= text.slice(7).trim()//index of removed
-  value=parseInt(value);
-  if (value > 0) {arrayObject.splice(value-1, 1);}
-   else if (value <= 0) {console.log("You Enter A Number does not existe ");}
-  else if (text.startsWith("remove")){arrayObject.pop();}
-
+  let value = text.slice(7).trim(); //index of removed
+  value = parseInt(value);
+  if (value > 0) {
+    arrayObject.splice(value - 1, 1);
+  } else if (value <= 0) {
+    console.log("You Enter A Number does not existe ");
+  } else if (text.startsWith("remove")) {
+    arrayObject.pop();
+  }
 }
 
 /**
@@ -149,63 +191,62 @@ function remove(text) {
 function list() {
   // console.log(listt)
   // arrayObject.forEach(element => );
-  Object.keys(arrayObject).forEach(key => {
+  Object.keys(arrayObject).forEach((key) => {
     // console.log(arrayObject[key].done);
 
-    if(arrayObject[key].done) {
+    if (arrayObject[key].done) {
       console.log(`[✓] ${arrayObject[key].task}`);
-    }
-    else{
+    } else {
       console.log(`[ ] ${arrayObject[key].task}`);
     }
   });
 }
 
+// async function readFile(filePath) {}
 // /**
 //  * @returns {void}
 //  */
- function isChecked(text) {
-  arrayObject
-  text = text.trim()
+function isChecked(text) {
+  arrayObject;
+  text = text.trim();
   let key = text.split(" ");
-  let keyIndex = parseInt(key[1])
-  console.log(key.length)
-  console.log(key)
+  let keyIndex = parseInt(key[1]);
+  console.log(key.length);
+  console.log(key);
 
-      if (key.length === 1) {
-        console.log("Error")
-      }
-      else{
-        if(!arrayObject[keyIndex-1].done){
-        arrayObject[keyIndex-1].done= true
-        console.log(key[0]);
-        }
-        else {console.log("Error-> Checked Invalid : Already Checked")}
-      }
+  if (key.length === 1) {
+    console.log("Error");
+  } else {
+    if (!arrayObject[keyIndex - 1].done) {
+      arrayObject[keyIndex - 1].done = true;
+      console.log(key[0]);
+    } else {
+      console.log("Error-> Checked Invalid : Already Checked");
     }
+  }
+}
 // /**
 //  * @returns {void}
 //  */
 function isUnChecked(text) {
-    text = text.trim()
+  text = text.trim();
   let key = text.split(" ");
-  let keyIndex = parseInt(key[1])
-  console.log(key.length)
-  console.log(key)
+  let keyIndex = parseInt(key[1]);
+  console.log(key.length);
+  console.log(key);
 
-      if (key.length === 1) {
-        console.log("Error")
-        console.log(arrayObject[keyIndex-1].done);
-
-      }
-      else{
-        if(arrayObject[keyIndex-1].done){
-        arrayObject[keyIndex-1].done= false
-        console.log(typeof(arrayObject[keyIndex-1].done));
-        }
-        else {console.log("Error-> unChecked Invalid : Already UnChecked")}
-      }
+  if (key.length === 1) {
+    console.log("Error");
+    console.log(arrayObject[keyIndex - 1].done);
+  } else {
+    if (arrayObject[keyIndex - 1].done) {
+      arrayObject[keyIndex - 1].done = false;
+      console.log(typeof arrayObject[keyIndex - 1].done);
+    } else {
+      console.log("Error-> unChecked Invalid : Already UnChecked");
     }
+  }
+}
 /**
  * @returns {void}
  */

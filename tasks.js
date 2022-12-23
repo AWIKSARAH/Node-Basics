@@ -10,7 +10,14 @@
  */
  let inputjson = "./database.json";
 
- 
+ if (process.argv[2]) {
+  inputjson = "./blah.json";
+
+  console.log("----------------");
+  } else {
+  inputjson = "./database.json";
+    
+  }
   
 function startApp(name) {
   // try {

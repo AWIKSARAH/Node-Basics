@@ -16,7 +16,7 @@ function startApp(name){
   console.log(`Welcome to ${name}'s application!`)
   console.log("--------------------")
 }
-let  listt =['a','aa'];
+let  listt =['a','b','c'];
 
 /**
  * Decides what to do depending on the data that was received
@@ -43,7 +43,7 @@ function onDataReceived(text) {
   else if(text.startsWith('add')){
     add(text);
   }
-  else if(text.startsWith('remove')){
+  else if(text.startsWith('remove') && text.endsWith('\n')){
     remove(text);
   }
   else if(text === 'help\n'){
@@ -96,7 +96,7 @@ function hello(text){
  * @returns {void}
  */
  function help(){
-  console.log('Help Command:\n quit or exit -> To exit The App \n hello -> hello! \n hello Your_Name -> hello your_Name!')
+  console.log('Help Command:\n quit or exit -> To exit The App \n hello -> hello! \n hello Your_Name -> hello your_Name!\n add  -> to add item\n remove -> to remove item \n edit -> to update an item' )
 
 }
 
@@ -116,13 +116,24 @@ else { console.log("Invalid commit enter help to help you")}
 * @returns {void}
 */
 function remove(text){
-  var value = text.substring(7);
- listt.remove(value);
- console.log(`Removed Done${text}!`)
+
+  let valueS = text.substring(7);
+  console.log("value :"+valueS)
+  console.log(listt)
+
+  console.log(listt.length)
+  let value = parseInt(valueS);
+  console.log(typeof(value))
+  if (value <=0 || value > listt.length || valueS == ""){
+    console.log("Nothing to remove in select")}
+  else if(value>0){
+    listt.splice(value-1)
+    console.log(`Remove Done Item `+listt)}
+  else{ 
+    listt.pop();
 }
-
-
-
+console.log(listt)
+}
 
 /**
 * @returns {void}

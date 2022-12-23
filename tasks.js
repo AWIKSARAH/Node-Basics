@@ -33,6 +33,9 @@ let listt = [
   {task: "EatSalad",
   done: true},
 ];
+
+let arrayObject = Object.values(listt);
+
 /**
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
@@ -63,7 +66,12 @@ function onDataReceived(text) {
     list();
   } else if (text.startsWith("edit") && text.endsWith("\n")) {
     edit(text);
-  } else {
+  } else if (text.startsWith("check") && text.endsWith("\n")) {
+    isChecked(text);
+  }else if (text.startsWith("uncheck") && text.endsWith("\n")) {
+    isUnChecked(text);
+  }
+   else {
     unknownCommand(text);
   }
 }
@@ -116,8 +124,9 @@ function add(text) {
   let text1 = text.substring(4);
   //  listt= listt.push(text1);
   if (text1.length > 0) {
-    listt.push(text1.trim());
+    arrayObject.push({task:text1.trim(), done: false});
     console.log(listt);
+
   } else {
     console.log("Invalid commit enter help to help you");
   }
@@ -128,9 +137,9 @@ function add(text) {
 function remove(text) {
   let value= text.slice(7).trim()//index of removed
   value=parseInt(value);
-  if (value > 0) {listt.splice(value-1, 1);}
+  if (value > 0) {arrayObject.splice(value-1, 1);}
    else if (value <= 0) {console.log("You Enter A Number does not existe ");}
-  else if (text.startsWith("remove")){listt.pop();}
+  else if (text.startsWith("remove")){arrayObject.pop();}
 
 }
 
@@ -139,7 +148,6 @@ function remove(text) {
  */
 function list() {
   // console.log(listt)
-  let arrayObject = Object.values(listt);
   // arrayObject.forEach(element => );
   Object.keys(arrayObject).forEach(key => {
     // console.log(arrayObject[key].done);
@@ -153,8 +161,51 @@ function list() {
   });
 }
 
+// /**
+//  * @returns {void}
+//  */
+ function isChecked(text) {
+  arrayObject
+  text = text.trim()
+  let key = text.split(" ");
+  let keyIndex = parseInt(key[1])
+  console.log(key.length)
+  console.log(key)
 
+      if (key.length === 1) {
+        console.log("Error")
+      }
+      else{
+        if(!arrayObject[keyIndex-1].done){
+        arrayObject[keyIndex-1].done= true
+        console.log(key[0]);
+        }
+        else {console.log("Error-> Checked Invalid : Already Checked")}
+      }
+    }
+// /**
+//  * @returns {void}
+//  */
+function isUnChecked(text) {
+    text = text.trim()
+  let key = text.split(" ");
+  let keyIndex = parseInt(key[1])
+  console.log(key.length)
+  console.log(key)
 
+      if (key.length === 1) {
+        console.log("Error")
+        console.log(arrayObject[keyIndex-1].done);
+
+      }
+      else{
+        if(arrayObject[keyIndex-1].done){
+        arrayObject[keyIndex-1].done= false
+        console.log(typeof(arrayObject[keyIndex-1].done));
+        }
+        else {console.log("Error-> unChecked Invalid : Already UnChecked")}
+      }
+    }
 /**
  * @returns {void}
  */
@@ -166,13 +217,13 @@ function edit(text) {
   if (newText.length <= 1) {
     console.log("Error !");
   } else if (isNaN(newText[1])) {
-    listt[listt.length - 1] = newText[1];
+    arrayObject[arrayObject.length - 1].task = newText[1];
     console.log("Edit Done");
   } else {
-    if (newText[1] > listt.length) {
+    if (newText[1] > arrayObject.length) {
       console.log("Error !");
     } else {
-      listt[newText[1] - 1] = index;
+      arrayObject[newText[1] - 1].task = index;
       console.log("Edit Done");
     }
   }

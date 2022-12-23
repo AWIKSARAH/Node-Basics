@@ -45,6 +45,8 @@ function onDataReceived(text) {
     help();
   } else if (text === "list\n") {
     list();
+  } else if (text.startsWith("edit") && text.endsWith("\n")) {
+    edit(text);
   } else {
     unknownCommand(text);
   }
@@ -136,5 +138,27 @@ function list() {
   });
 }
 
+/**
+ * @returns {void}
+ */
+function edit(text) {
+  //  text =
+  let newText = text.split(" "); //
+  // console.log(listt[listt.length-1])
+  let index = text.substring(6); //new message index
+  if (newText.length <= 1) {
+    console.log("Error !");
+  } else if (isNaN(newText[1])) {
+    listt[listt.length - 1] = newText[1];
+    console.log("Edit Done");
+  } else {
+    if (newText[1] > listt.length) {
+      console.log("Error !");
+    } else {
+      listt[newText[1] - 1] = index;
+      console.log("Edit Done");
+    }
+  }
+}
 // The following line starts the application
 startApp("Sarah Awik");

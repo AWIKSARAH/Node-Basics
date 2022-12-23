@@ -115,8 +115,8 @@ function remove(text) {
   console.log(listt.length);
   let value = parseInt(valueS);
   console.log(typeof value);
-  if (value <= 0 || value > listt.length || valueS == "") {
-    console.log("Nothing to remove in select");
+  if (value <= 0 || value > listt.length) {
+    console.log("You Enter A Number does not existe ");
   } else if (value > 0) {
     listt.splice(value - 1);
     console.log(`Remove Done Item ` + listt);

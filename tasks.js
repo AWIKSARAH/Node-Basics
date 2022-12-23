@@ -15,13 +15,29 @@ function startApp(name) {
   console.log(`Welcome to ${name}'s application!`);
   console.log("--------------------");
 }
-let listt = ["a", "b", "c"];
-
+// let listt = {
+//   task:" WakeUP",
+//    task:" Watch Movie", 
+//    "EatChicken", 
+//    "getMilking"
+//   };
+let listt = [
+  {task: "WakeUP",
+  done: true},
+  {task: "Watch Movie",
+  done: false},
+  {task: "EatChicken",
+  done: false},
+  {task: "getMilking",
+  done: true},
+  {task: "EatSalad",
+  done: true},
+];
 /**
  * Decides what to do depending on the data that was received
  * This function receives the input sent by the user.
  *
- * For example, if the user entered
+ * For example, if the user entered  
  * ```
  * node tasks.js batata
  * ```
@@ -110,16 +126,6 @@ function add(text) {
  * @returns {void}
  */
 function remove(text) {
-  // let valueS = text.substring(7);
-  // let value = parseInt(valueS);
-  // if (value <= 0 || value > listt.length) {
-  //   console.log("You Enter A Number does not existe ");
-  // } else if (value > 0) {
-  //   listt.splice(value - 1);
-  //   console.log(`Remove Done Item `);
-  // } else {
-  //   listt.pop();
-  // }
   let value= text.slice(7).trim()//index of removed
   value=parseInt(value);
   if (value > 0) {listt.splice(value-1, 1);}
@@ -133,10 +139,21 @@ function remove(text) {
  */
 function list() {
   // console.log(listt)
-  listt.map((index) => {
-    console.log(`${listt.indexOf(index) + 1} - ${index}`);
+  let arrayObject = Object.values(listt);
+  // arrayObject.forEach(element => );
+  Object.keys(arrayObject).forEach(key => {
+    // console.log(arrayObject[key].done);
+
+    if(arrayObject[key].done) {
+      console.log(`[✓] ${arrayObject[key].task}`);
+    }
+    else{
+      console.log(`[ ] ${arrayObject[key].task}`);
+    }
   });
 }
+
+
 
 /**
  * @returns {void}
